@@ -70,4 +70,9 @@ public class HgvsG2Map implements HgvsGProcessor {
     public void rep(String accession, int first, String ref, int num) {
         assert(false);
     }
+
+    @Override
+    public void error(String message) throws Exception {
+        throw new Exception(message);
+    }
 }

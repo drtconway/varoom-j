@@ -42,6 +42,11 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
 
     }
 
+    @Override
+    public void error(String message) throws Exception {
+        throw new Exception(message);
+    }
+
     private Transcript lookupTx(String accession, Integer pos) {
         return null;
     }

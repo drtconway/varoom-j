@@ -316,8 +316,13 @@ public class TranscriptIndexTest {
         public void rep(String accession, int first, String ref, int num) {
 
         }
+
+        @Override
+        public void error(String message) throws Exception {
+            throw new Exception(message);
+        }
     }
-    private void testIdxLookup(TranscriptIndex txIdx, String hgvsG, String hgvsC) {
+    private void testIdxLookup(TranscriptIndex txIdx, String hgvsG, String hgvsC) throws Exception {
         HgvsC2Map hgvsc2Map = new HgvsC2Map();
         Map<String,Object> expected = Hgvs.hgvsc2map(hgvsC);
         TestHandler conv = new TestHandler(txIdx, hgvsc2Map);
@@ -355,7 +360,7 @@ public class TranscriptIndexTest {
      *
      */
     @Test
-    public void testCreate()  {
+    public void testCreate() throws Exception {
         TranscriptIndex txIdx = new TranscriptIndex();
         RefGeneReader R = new RefGeneReader(fac, txIdx);
         R.process("test.vcf");

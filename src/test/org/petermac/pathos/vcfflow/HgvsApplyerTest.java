@@ -35,6 +35,10 @@ public class HgvsApplyerTest {
             sequence = mutant.toString();
         }
 
+        @Override
+        public void error(String message) throws Exception {
+            throw new Exception(message);
+        }
     }
 /** 
 * 
@@ -42,7 +46,7 @@ public class HgvsApplyerTest {
 * 
 */ 
 @Test
-public void testSubG()  {
+public void testSubG() throws Exception {
     Applyer a = new Applyer();
     String var = "chr1:g.15A>C";
     Hgvs.apply(var, a);
@@ -56,7 +60,7 @@ public void testSubG()  {
 * 
 */ 
 @Test
-public void testInsG()  {
+public void testInsG() throws Exception {
     Applyer a = new Applyer();
     String var = "chr1:g.15_16insGGG";
     Hgvs.apply(var, a);
@@ -70,7 +74,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testDel1()  {
+    public void testDel1() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15del";
         Hgvs.apply(var, a);
@@ -84,7 +88,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testDel2()  {
+    public void testDel2() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15_16del";
         Hgvs.apply(var, a);
@@ -98,7 +102,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testDelins1()  {
+    public void testDelins1() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15delinsGGG";
         Hgvs.apply(var, a);
@@ -111,7 +115,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testDelins2()  {
+    public void testDelins2() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15_16delinsGGG";
         Hgvs.apply(var, a);
@@ -126,7 +130,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testDup1()  {
+    public void testDup1() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15dup";
         Hgvs.apply(var, a);
@@ -139,7 +143,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testDup2()  {
+    public void testDup2() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15_17dup";
         Hgvs.apply(var, a);
@@ -153,7 +157,7 @@ public void testInsG()  {
      *
      */
     @Test
-    public void testInv()  {
+    public void testInv() throws Exception {
         Applyer a = new Applyer();
         String var = "chr1:g.15_17inv";
         Hgvs.apply(var, a);

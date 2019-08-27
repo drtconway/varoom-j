@@ -69,4 +69,9 @@ public class HgvsC2Map implements HgvsCProcessor {
     public void rep(String accession, Locus first, String ref, Integer num) {
         assert (false);
     }
+
+    @Override
+    public void error(String message) throws Exception {
+        throw new Exception(message);
+    }
 }

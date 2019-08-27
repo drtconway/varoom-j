@@ -49,4 +49,9 @@ public class HgvsGFormatter implements HgvsGProcessor {
         consumer.accept(accession + ":g." + first + ref + "[" + num + "]");
     }
 
+    @Override
+    public void error(String message) throws Exception {
+        throw new Exception(message);
+    }
+
 }

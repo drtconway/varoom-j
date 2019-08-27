@@ -15,4 +15,6 @@ public interface HgvsCProcessor {
     void inv(String accession, Locus first, Locus last);
 
     void rep(String accession, Locus first, String ref, Integer num);
+
+    void error(String message) throws Exception;
 }

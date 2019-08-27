@@ -101,7 +101,7 @@ public class Hgvs {
         res.hgvsg = chrom + ":g." + pos1 + "_" + pos1n + "delins" + alt.substring(1);
     }
 
-    public static Map<String,Object> hgvsg2map(String hgvsg) {
+    public static Map<String,Object> hgvsg2map(String hgvsg) throws Exception {
         HgvsG2Map proc = new HgvsG2Map();
         apply(hgvsg, proc);
         return proc.map;
@@ -113,7 +113,7 @@ public class Hgvs {
         return proc.map;
     }
 
-    public static void apply(String hgvs, HgvsGProcessor proc) {
+    public static void apply(String hgvs, HgvsGProcessor proc) throws Exception {
         Matcher m;
 
         m = hgvsgSil1.matcher(hgvs);
@@ -195,6 +195,8 @@ public class Hgvs {
             proc.rep(m.group(1), Integer.parseInt(m.group(2)), m.group(3), Integer.parseInt(m.group(4)));
             return;
         }
+
+        proc.error("couldn't parse hgvsg string: " + hgvs);
     }
 
     public static void apply(String hgvs, HgvsCProcessor proc) {

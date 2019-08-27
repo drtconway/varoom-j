@@ -14,4 +14,6 @@ public interface HgvsGProcessor {
     void inv(String accession, int first, int last);
 
     void rep(String accession, int first, String ref, int num);
+
+    void error(String message) throws Exception;
 }
