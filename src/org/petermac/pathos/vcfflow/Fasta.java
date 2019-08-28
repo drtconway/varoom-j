@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.BiConsumer;
 
-@SuppressWarnings("WeakerAccess")
 public class Fasta {
     public final String label;
     public final String sequence;

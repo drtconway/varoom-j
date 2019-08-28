@@ -1,6 +1,7 @@
 package org.petermac.pathos.vcfflow;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 public class StringFileFactory extends FileFactory {
@@ -34,5 +35,13 @@ public class StringFileFactory extends FileFactory {
     @Override
     public OutputStream out(String fileName) {
         return new CapturingOutputStream(files, fileName);
+    }
+
+    @Override
+    public MapResult map(String fileName) throws UnsupportedEncodingException {
+        String txt = files.get(fileName);
+        byte[] bytes = txt.getBytes("US-ASCII");
+        ByteBuffer res = ByteBuffer.wrap(bytes);
+        return new MapResult(res, bytes.length);
     }
 }

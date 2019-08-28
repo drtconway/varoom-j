@@ -2,7 +2,12 @@ package test.org.petermac.pathos.vcfflow;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+
+import org.petermac.pathos.vcfflow.FileFactory;
 import org.petermac.pathos.vcfflow.Rope;
+import org.petermac.pathos.vcfflow.StringFileFactory;
+
+import java.io.UnsupportedEncodingException;
 
 /** 
 * Rope Tester. 
@@ -61,4 +66,16 @@ public class RopeTest {
         assertEquals("cons substring", "ATGTAATTCC", s.toString());
     }
 
-} 
+    @Test
+    public void testBytes1() throws UnsupportedEncodingException {
+        StringFileFactory fac = new StringFileFactory();
+        fac.files.put("chr1", "GAAGAGGTGAATGTAATTCCTCCACACACTCCAGTTAGGTATGAATTTTCCTACTTTTAATTATATTATAATTTTG");
+        FileFactory.MapResult m = fac.map("chr1");
+        Rope r = Rope.atom(m.map, (int)m.length);
+        Rope s = Rope.substr(r, 10, 20);
+        int sl = s.size();
+        assertEquals("cons substring", 10, sl);
+        assertEquals("cons substring", "ATGTAATTCC", s.toString());
+    }
+
+}
