@@ -1,4 +1,4 @@
-package test.org.petermac.pathos.varoom;
+package test.org.petermac.pathos.varoom.hgvs;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

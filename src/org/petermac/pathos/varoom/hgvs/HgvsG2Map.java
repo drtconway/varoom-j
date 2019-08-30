@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HgvsG2Map implements HgvsGProcessor {
-    Map<String,Object> map;
+    public Map<String,Object> map;
 
-    HgvsG2Map() {
+    public HgvsG2Map() {
     }
 
     @Override

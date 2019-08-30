@@ -96,20 +96,15 @@ public class Transcript {
         }
     }
 
-    public void dump() {
-        printArray(exonCount, txStartOffsets);
-        printArray(exonCount, txEndOffsets);
-    }
-
-    private void printArray(int n, int[] arr) {
-        System.out.print('[');
-        for (int i = 0; i < n; i++) {
-            if (i > 0) {
-                System.out.print(", ");
-            }
-            System.out.print(arr[i]);
-        }
-        System.out.println(']');
+    /**
+     * Convert a 1-based genomic coordinate to a HGVS.c compatible locus.
+     * @param pos is a 1-based genomic coordinate in the chromosome for which the refgene file provides an alignment to this transcript.
+     * @return the Locus structure.
+     */
+    public Locus makeLocus(int pos) {
+        Locus res = new Locus();
+        makeLocus(pos, res);
+        return res;
     }
 
     /**

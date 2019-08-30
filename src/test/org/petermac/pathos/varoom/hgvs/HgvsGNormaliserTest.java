@@ -45,7 +45,7 @@ public class HgvsGNormaliserTest {
     public void before() throws Exception {
         seqFac = new TestSequenceFactory();
         results = new ArrayList<>();
-        catcher = (String str) -> results.add(str);
+        catcher = (String str) ->  results.add(str);
 
         norm = new HgvsGNormaliser(seqFac, new HgvsGFormatter(catcher));
         norm.checkReferenceMatches = true;

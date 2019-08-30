@@ -96,7 +96,6 @@ public class TranscriptTest {
     public void testLocationKind6() {
         // chr5:g.170837698A>T NM_002520.6:c.*129A>T
         Transcript tx = npm1();
-        tx.dump();
         Locus l = new Locus();
         tx.makeLocus(170837698, l);
         assertEquals(Locus.Kind.UTR3, l.kind);
@@ -107,8 +106,6 @@ public class TranscriptTest {
     public void testLocationKind7() {
         Transcript tx = kras();
         Locus l = new Locus();
-
-        tx.dump();
 
         // chr12:g.25368378C>T NM_033360.2:c.567G>A
         tx.makeLocus(25368378, l);
