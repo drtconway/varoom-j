@@ -45,6 +45,14 @@ public class RefGeneReader {
         int[] exonStarts = strToIntList(exonCount, flds.get(9));
         int[] exonEnds = strToIntList(exonCount, flds.get(10));
         int[] exonFrames = strToIntList(exonCount, flds.get(15));
+        if (flds.get(2).startsWith("chr") && flds.get(2).indexOf('_') >= 0) {
+            // not a normal chromosome.
+            return true;
+        }
+        if (cdsStart == cdsEnd) {
+            // Non-coding. Skip!
+            return true;
+        }
         processor.accept(flds.get(1), flds.get(2), strToStrand(flds.get(3)), txStart, txEnd, cdsStart, cdsEnd,
                 exonCount, exonStarts, exonEnds, exonFrames, flds.get(12), strToCdsStat(flds.get(13)), strToCdsStat(flds.get(14)));
 

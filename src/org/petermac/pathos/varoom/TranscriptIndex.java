@@ -4,6 +4,7 @@ import org.petermac.pathos.varoom.hgvs.Transcript;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class TranscriptIndex implements RefGeneProcessor {
@@ -40,6 +41,14 @@ public class TranscriptIndex implements RefGeneProcessor {
 
     @Override
     public void end() {
+    }
+
+    public Set<String> chroms() {
+        return index.keySet();
+    }
+
+    public TxList getTranscripts(String chrom) {
+        return index.get(chrom);
     }
 
     public void with(String chrom, int pos, ThrowingConsumer<Transcript> handler) throws Exception {
