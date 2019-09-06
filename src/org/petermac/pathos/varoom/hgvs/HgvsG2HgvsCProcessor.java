@@ -1,5 +1,6 @@
 package org.petermac.pathos.varoom.hgvs;
 
+import org.petermac.pathos.varoom.RefGeneProcessor;
 import org.petermac.pathos.varoom.ThrowingConsumer;
 import org.petermac.pathos.varoom.TranscriptIndex;
 
@@ -18,6 +19,7 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
     @Override
     public void sub(String accession, int pos, String ref, String alt) throws Exception {
         final int gPos = pos;
+        //System.err.println(String.format("%s\t%d\t%s\t%s", accession, pos, ref, alt));
         txIdx.with(accession, pos, (Transcript tx) -> {
             Locus cPos = tx.makeLocus(gPos);
             String cRef = tx.applyStrand(ref);
@@ -38,6 +40,11 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
             seen.add(tx.accession);
             Locus cBefore = tx.makeLocus(gBefore);
             Locus cAfter = tx.makeLocus(gAfter);
+            if (tx.strand == RefGeneProcessor.Strand.NEG) {
+                Locus tmp = cBefore;
+                cBefore = cAfter;
+                cAfter = tmp;
+            }
             String cAlt = tx.applyStrand(alt);
             resultProcessor.ins(tx.accession, cBefore, cAfter, cAlt);
         };
@@ -57,6 +64,11 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
             seen.add(tx.accession);
             Locus cFirst = tx.makeLocus(gFirst);
             Locus cLast = tx.makeLocus(gLast);
+            if (tx.strand == RefGeneProcessor.Strand.NEG) {
+                Locus tmp = cFirst;
+                cFirst = cLast;
+                cLast = tmp;
+            }
             resultProcessor.del(tx.accession, cFirst, cLast);
         };
         txIdx.with(accession, gFirst, hx);
@@ -75,6 +87,11 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
             seen.add(tx.accession);
             Locus cFirst = tx.makeLocus(gFirst);
             Locus cLast = tx.makeLocus(gLast);
+            if (tx.strand == RefGeneProcessor.Strand.NEG) {
+                Locus tmp = cFirst;
+                cFirst = cLast;
+                cLast = tmp;
+            }
             String cAlt = tx.applyStrand(alt);
             resultProcessor.delins(tx.accession, cFirst, cLast, cAlt);
         };
@@ -94,6 +111,11 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
             seen.add(tx.accession);
             Locus cFirst = tx.makeLocus(gFirst);
             Locus cLast = tx.makeLocus(gLast);
+            if (tx.strand == RefGeneProcessor.Strand.NEG) {
+                Locus tmp = cFirst;
+                cFirst = cLast;
+                cLast = tmp;
+            }
             resultProcessor.dup(tx.accession, cFirst, cLast);
         };
         txIdx.with(accession, gFirst, hx);
@@ -111,6 +133,11 @@ public class HgvsG2HgvsCProcessor implements HgvsGProcessor {
             seen.add(tx.accession);
             Locus cFirst = tx.makeLocus(gFirst);
             Locus cLast = tx.makeLocus(gLast);
+            if (tx.strand == RefGeneProcessor.Strand.NEG) {
+                Locus tmp = cFirst;
+                cFirst = cLast;
+                cLast = tmp;
+            }
             resultProcessor.inv(tx.accession, cFirst, cLast);
         };
         txIdx.with(accession, gFirst, hx);

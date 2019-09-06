@@ -45,4 +45,21 @@ public class Locus {
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Locus)) {
+            return false;
+        }
+        Locus other = (Locus) obj;
+        return (this.kind == other.kind) && (this.txPos == other.txPos) && (this.relPos == other.relPos);
+    }
+
+    @Override
+    public int hashCode() {
+        return kind.hashCode() + 11 * txPos + 9973 * relPos;
+    }
 }

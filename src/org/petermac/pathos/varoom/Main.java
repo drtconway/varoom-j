@@ -2,9 +2,7 @@ package org.petermac.pathos.varoom;
 
 
 import org.apache.commons.cli.*;
-import org.petermac.pathos.varoom.hgvs.HgvsGFormatter;
-import org.petermac.pathos.varoom.hgvs.HgvsGProcessor;
-import org.petermac.pathos.varoom.hgvs.HgvsGVcfHandler;
+import org.petermac.pathos.varoom.hgvs.*;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -18,7 +16,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Options opts = new Options();
-        opts.addOption("H", false, "print the variants from VCF files as un-normalised HGVSg");
+        opts.addOption("G", false, "print the variants from VCF files as un-normalised HGVSg");
+        opts.addOption("C", false, "print the variants from VCF files as un-normalised HGVSc");
         opts.addOption("x", true, "transcript data file");
         opts.addOption("g", true, "home directory for genome data");
         opts.addOption("o", true, "output file");
@@ -35,9 +34,10 @@ public class Main {
 
         if (cmd.hasOption("x")) {
             String txFileName = cmd.getOptionValue("x");
+            System.err.println(String.format("reading transcript data from '%s'", txFileName));
             RefGeneReader r = new RefGeneReader(fileFactory, txIdx);
             r.process(txFileName);
-
+            System.err.println(txIdx.chroms());
         }
 
         String outputFileName = "-";
@@ -46,7 +46,7 @@ public class Main {
         }
         outputStream = fileFactory.out(outputFileName);
 
-        if (cmd.hasOption("H")) {
+        if (cmd.hasOption("G")) {
             PrintStream out = new PrintStream(outputStream);
             HgvsGProcessor hgvsGPrinter = new HgvsGFormatter(out::println);
             HgvsGVcfHandler hgvsGConverter = new HgvsGVcfHandler(hgvsGPrinter);
@@ -54,6 +54,21 @@ public class Main {
 
             List<String> vcfNames = cmd.getArgList();
             for (int i = 0; i < vcfNames.size(); i++) {
+                vf.process(vcfNames.get(i));
+            }
+            return;
+        }
+
+        if (cmd.hasOption("C")) {
+            PrintStream out = new PrintStream(outputStream);
+            HgvsCProcessor hgvsCPrinter = new HgvsCFormatter(out::println);
+            HgvsGProcessor hgvsCconverter = new HgvsG2HgvsCProcessor(txIdx, hgvsCPrinter);
+            HgvsGVcfHandler hgvsGConverter = new HgvsGVcfHandler(hgvsCconverter);
+            VcfFlow vf = new VcfFlow(hgvsGConverter);
+
+            List<String> vcfNames = cmd.getArgList();
+            for (int i = 0; i < vcfNames.size(); i++) {
+                System.err.println("processing " + vcfNames.get(i));
                 vf.process(vcfNames.get(i));
             }
             return;

@@ -13,6 +13,9 @@ public class HgvsGVcfHandler implements VariantHandler {
 
     @Override
     public boolean apply(String chrom, Integer pos, String id, String ref, String alt, Double qual, String filter, VariantInfo info, VariantGenotype[] genotypes) throws Exception {
+        if (!chrom.startsWith("chr")) {
+            chrom = "chr" + chrom;
+        }
         int p = 0;
         int q = alt.indexOf(',', p);
         while (q >= 0) {
