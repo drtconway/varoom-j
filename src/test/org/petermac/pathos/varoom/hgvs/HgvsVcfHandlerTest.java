@@ -7,8 +7,6 @@ import org.petermac.pathos.varoom.SequenceFactory;
 import org.petermac.pathos.varoom.hgvs.*;
 import test.org.petermac.pathos.varoom.FakeSequenceFactory;
 
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 
 /** 
@@ -38,7 +36,7 @@ public class HgvsVcfHandlerTest {
         });
         HgvsGNormaliser norm = new HgvsGNormaliser(sfac, mapper);
         norm.enable3primeShifts = true;
-        HgvsVcfHandler v = new HgvsVcfHandler(norm);
+        HgvsGVcfHandler v = new HgvsGVcfHandler(norm);
         v.apply("chr1", 33476432, ".", "A", "AGGATGT", 0.0, "", null, null);
     }
 

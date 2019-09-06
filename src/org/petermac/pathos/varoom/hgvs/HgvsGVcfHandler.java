@@ -4,10 +4,10 @@ import org.petermac.pathos.varoom.VariantGenotype;
 import org.petermac.pathos.varoom.VariantHandler;
 import org.petermac.pathos.varoom.VariantInfo;
 
-public class HgvsVcfHandler implements VariantHandler {
+public class HgvsGVcfHandler implements VariantHandler {
     private HgvsGProcessor processor;
 
-    public HgvsVcfHandler(HgvsGProcessor processor) {
+    public HgvsGVcfHandler(HgvsGProcessor processor) {
         this.processor = processor;
     }
 

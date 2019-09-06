@@ -11,7 +11,7 @@ public class HgvsGFormatter implements HgvsGProcessor {
 
     @Override
     public void sub(String accession, int pos, String ref, String alt) throws Exception {
-        consumer.accept(accession + "g." + pos + ref + ">" + alt);
+        consumer.accept(accession + ":g." + pos + ref + ">" + alt);
     }
 
     @Override
